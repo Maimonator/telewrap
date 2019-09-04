@@ -6,6 +6,7 @@ import shutil
 import subprocess
 import sys
 import time
+import traceback
 
 import colors
 from telebot import TeleBot
@@ -28,13 +29,12 @@ def load_config(path):
     with open(path, "r") as r:
         return json.load(r)
 
-def send_message(token, user_ids, time):
+def send_message(token, user_ids, msg):
     global bot
-    message = f"job finished, took {time} seconds"
 
     bot = TeleBot(token)
     for uid in user_ids:
-        bot.send_message(uid, message)
+        bot.send_message(uid, msg)
 
 def wrap(args):
     config = load_config(args.config_file)
@@ -44,9 +44,18 @@ def wrap(args):
     print("Starting job, will send message to these users:")
     print(" ".join(found_users))
     start_time = time.time()
-    printAndExecute(args.cmd)
+    try:
+        printAndExecute(args.cmd)
+    except Exception as ex:
+        traceback.print_exc()
+        time_took = int(time.time() - start_time)
+        message = f"job failed, took {time_took} seconds"
+        send_message(token, user_ids, message)
+        return
+
     time_took = int(time.time() - start_time)
-    send_message(token, user_ids, time_took)
+    message = f"job finished, took {time_took} seconds"
+    send_message(token, user_ids, message)
 
 def configure(args):
     global USER_DICT
