@@ -14,7 +14,7 @@ USER_DICT = {}
 bot = TeleBot(6)
 
 TELEWRAP_BASH_FORMAT = """#!/bin/bash
-python3 telegram_wrapper.py wrap --config-file {config_file} --users {users} --cmd \"$@\""""
+telewrapper wrap --config-file {config_file} --users {users} --cmd \"$@\""""
 
 def printAndExecute(commandLine):
     if isinstance(commandLine, list):
@@ -72,9 +72,12 @@ def configure(args):
         bot.send_message(msg.from_user.id, "Ending bot")
         bot.stop_polling()
     print("Polling for subscriptions")
+    print("Send /subscribe <user> to your bot to subscribe")
+    print("Send /end to your bot to finish configuring")
     bot.polling()
 
     # after polling finishes
+    print("Done polling adding users: {}".format(" ".join(USER_DICT.keys())))
     config_path = os.path.expanduser(args.output)
     try:
         config_dict = load_config(config_path)
@@ -88,11 +91,12 @@ def configure(args):
         json.dump(config_dict, w)
 
 def install(args):
+    install_path = os.path.expanduser(args.install_path)
     telewrapper_data = TELEWRAP_BASH_FORMAT.format(users=" ".join(args.users), config_file=args.config_file)
-    telewrapper_output = os.path.join(args.install_path, "telewrap")
+    telewrapper_output = os.path.join(install_path, "telewrap")
     script_filename = sys.argv[0]
     script_in_path = os.path.join(os.path.abspath(os.curdir), script_filename)
-    script_out_path = os.path.join(args.install_path, os.path.splitext(script_filename)[0])
+    script_out_path = os.path.join(install_path, os.path.splitext(script_filename)[0])
 
     shutil.copy(script_in_path, script_out_path)
 
@@ -116,7 +120,6 @@ def main():
                                   help="output path to write config file to, default is '~/.tele.config'",
                                    default="~/.tele.config")
     configure_parser.add_argument("token", help="bot api token")
-    # configure_parser.add_argument("users", nargs='+', help="user list with username and cid should be formatted as: user1,cid1 user2,cid2")
     configure_parser.set_defaults(do=configure)
 
     wrapper_parser = subparsers.add_parser("wrap")
@@ -128,7 +131,7 @@ def main():
     wrapper_parser.set_defaults(do=wrap)
 
     install_parser = subparsers.add_parser("install")
-    install_parser.add_argument("-i","--install-path", help="path to install the script in default is /usr/local/bin", default="/usr/local/bin")
+    install_parser.add_argument("-i","--install-path", help="path to install the script in default is ~/.local/bin", default="~/.local/bin")
     install_parser.add_argument("--config-file", help="config file to use, default is '~/.tele.config'",default="~/.tele.config")
     install_parser.add_argument("-u","--users", help="users to send message to when job finishes", required=True, nargs='+')
     install_parser.set_defaults(do=install)
