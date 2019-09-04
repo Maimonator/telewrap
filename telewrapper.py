@@ -104,6 +104,7 @@ def install(args):
     with open(telewrapper_output, "w") as w:
         w.write(telewrapper_data)
     os.chmod(telewrapper_output, int("777",8))
+    os.chmod(script_out_path, int("777",8))
     print(telewrapper_output)
     print("Finished installing telewrap")
     print("Usage: telewrap <command>")
