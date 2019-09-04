@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 import argparse
 import json
-import time
-from telebot import TeleBot
 import os
-import subprocess
-import colors
 import shutil
+import subprocess
 import sys
+import time
+
+import colors
+from telebot import TeleBot
 
 USER_DICT = {}
 bot = TeleBot(6)
