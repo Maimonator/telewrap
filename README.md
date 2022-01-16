@@ -16,7 +16,7 @@ python3 telewrapper.py install -u <USER>
 
 * First use telegram's `@BotFather` to create your bot and receive its `token`
 * run `telewrapper.py configure [token]`  to configure telewrapper to send you a message
-  send `/subscribe [username]` with a username that will identify your uid
+	* On telegram, go to the chat with your new bot and send `/subscribe [username]` with a username that will identify your uid
 * run `sudo telewrapper.py install -u [users]` where `users` is a list of users
   you want to send them a message
 * now just add `telewrap` before any cmdline you'd like to execute `telewrap sleep 5`
