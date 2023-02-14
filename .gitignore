@@ -1,0 +1,7 @@
+*.egg-info
+*.pyc
+poetry.lock
+
+venv/**
+.vscode/
+dist/*
