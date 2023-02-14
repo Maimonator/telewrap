@@ -1,8 +1,7 @@
 # telewrap
 
 `telewrap` is a utility that lets you run bash cmdline
-and send a message to you or to your friends when the shell finishes
-to run
+and send a message to you or to your friends when the shell finishes to run
 
 ## How To Install
 

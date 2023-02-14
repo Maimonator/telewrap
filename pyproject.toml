@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.poetry]
+name = "telewrap"
+version = "0.1.5"
+description = "Telewrap CLI"
+authors = ["Maimonator"]
+readme = "README.md"
+packages = [
+    { include = "telewrap" }
+]
+
+[tool.poetry.dependencies]
+python = ">=3.8"
+click = ">=8.0.0"
+python-telegram-bot = ">=20.1"
+
+[tool.poetry.scripts]
+tl = "telewrap.cli.cli:bot"
+tlw = "telewrap.cli.cli:wrap"
+
+[tool.poetry.group.tests]
+optional = true
+
+[tool.poetry.group.tests.dependencies]
+pytest= "*"
+pytest-asyncio= "*"
+pytest-timeout= "*"
