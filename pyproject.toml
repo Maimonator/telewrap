@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [tool.poetry]
 name = "telewrap"
-version = "0.1.8"
+version = "0.2.0"
 description = "Telewrap CLI"
 authors = ["Maimonator"]
 readme = "README.md"
