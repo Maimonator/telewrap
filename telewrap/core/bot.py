@@ -54,10 +54,11 @@ class TelegramBot:
         self._end_func = end_func
 
         self.app = Application.builder().token(self._config.token).build()
-        self.app.add_handler(CommandHandler('start', self._start_cmd))
         if self._configuration_mode:
+            self.app.add_handler(CommandHandler('start', self._start_cmd))
             self.app.add_handler(CommandHandler('end', self._end_cmd))
-        self.app.add_handler(CommandHandler('status', self._status_cmd))
+        else:
+            self.app.add_handler(CommandHandler('status', self._status_cmd))
 
     async def start(self):
         await self.app.initialize()
@@ -88,7 +89,7 @@ class TelegramBot:
         await update.message.reply_text(f"Subscribed to updates! Your chat_id is {update.message.chat_id}.")
 
     async def _end_cmd(self, update: Update, _context: Dict):
-        await update.message.reply_text(f'Ending bot!')
+        await update.message.reply_text(f'Ending configuration stage.')
         self._stop_event.set()
 
 

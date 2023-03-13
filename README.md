@@ -1,8 +1,18 @@
 # Telewrap
 
-Telewrap is a Python package for easily sending notifications and reports to your Telegram chat.
+Telewrap is a Python package that can make your life as a developer so much easier.
+With this tool, you don't have to constantly check your shell to see if your code has finished compiling or if your model has finished training.
+Telewrap sends notifications straight to your telegram, freeing you up to focus on other tasks or take a break, knowing that you'll be alerted as soon as the job is done.
 
 # Getting started
+
+## TLDR
+For those of you that just want it to work:
+```bash
+pip install telewrap
+tl configure # then follow the instructions
+tlw sleep 5
+```
 
 ## Installation
 
@@ -14,13 +24,13 @@ This will install two command line interfaces: `tl` and `tlw`.
 
 ## Configuration
 
-To configure Telewrap, run the following command and follow the instructions:
+To configure Telewrap, run the following command and follow the printed instructions:
 
 ``bash
 tl configure
 ``
 
-By default, the configuration file is saved in the expanded local directory `~/.config` under the name `.telewrap.config`. If you want to save it to a different directory, you can use the environment variable `TELEWRAP_CONFIG_DIR`. For example, the following command will save the configuration file under /tmp/.telewrap.config:
+By default, the configuration file is saved in the expanded path `~/.config/.telewrap.config`. If you want to save it to a different directory, you can use the environment variable `TELEWRAP_CONFIG_DIR`. For example, the following command will save the configuration file under /tmp/.telewrap.config:
 
 ```bash
 TELEWRAP_CONFIG_DIR=/tmp tl configure
@@ -65,8 +75,8 @@ from telewrap import Telewrap, message_funcs
 import time
 
 i = 0
-def status_func(x): return f"Current iteration {i}\n{message_funcs.default_status_func(x)}" 
-def end_func(x): return f"Tada!!" 
+def status_func(x): return f"Current iteration {i}\n{message_funcs.default_status_func(x)}"
+def end_func(x): return f"Tada!!"
 with Telewrap(status_func=status_func, end_func=end_func):
     while i < 10:
         # A long function
@@ -75,10 +85,11 @@ with Telewrap(status_func=status_func, end_func=end_func):
 ```
 
 ## Some Useful Examples
-Telewrap is a useful tool for checking whether a website is ready for use. You can either write your own script that verifies the website's status or use the provided examples/is_website_ready.py script as a starting point. Once you have your script ready, simply execute the following command in your terminal:
+Telewrap is a valuable tool that for any task that requires waiting, one example is checking the availability of a website. All you need to do is write a script that checks whether a website is ready or you can use the one in  `examples/is_website_ready.py`.
+Then just run:
 
 ```bash
-tlw python is_website_ready.py https://google.com
+tlw python examples/is_website_ready.py https://google.com
 ```
 
-This will provide you with a notification as soon as the website is available.x
+This will provide you with a notification as soon as the website is available.

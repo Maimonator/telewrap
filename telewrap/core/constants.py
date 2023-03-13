@@ -27,9 +27,8 @@ For more detailed instructions, visit: https://core.telegram.org/bots/features#c
 CONFIGURE_SUBSCRIPTION = """
 Great, now you just need to subscribe some users to your bot. Follow these steps:
 1. Go to your bot in the Telegram app and send the message '/start' to start a conversation
-2. Send '/subscribe <username>' replacing '<username>' with a chosen username (not necessarily a Telegram username)
-3. (Optional) Repeat step 2 for every user you want to subscribe
-4. Send the message '/end' to your bot to complete the configuration process
+2. (Optional) Repeat step 1 for every user you want to subscribe, for updates from telewrap
+3. Send the message '/end' to your bot to complete the configuration process
 """
 
 CONFIGURE_END = """

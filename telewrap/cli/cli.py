@@ -43,6 +43,7 @@ def wrap(**kwargs):
 def configure(**kwargs):
     """ Configure telewrap to work with a token """
     print(constants.CONFIGURE_TITLE)
+    print(f"Using configuration file: {constants.CONFIG_PATH.absolute()}")
     token = kwargs["token"]
     if token is None:
         print(constants.CONFIGURE_TOKEN)

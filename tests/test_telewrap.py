@@ -128,7 +128,7 @@ class TestTelegramBot:
 
         await telegram_bot.start()
         await telegram_bot._end_cmd(update, {})
-        update.message.reply_text.assert_called_once_with("Ending bot!")
+        update.message.reply_text.assert_called_once_with("Ending configuration stage.")
         telegram_bot._stop_event.set.assert_called_once()
 
 
