@@ -5,19 +5,22 @@ on:
     workflows: ["Test Python Package"]
     types:
       - completed
+    branches:
+      - master
+
 
 permissions:
   contents: read
 
 jobs:
   deploy-test-pypi:
-    if: github.event.workflow_run.conclusion == 'success'
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.ref == 'refs/heads/master' }}
     runs-on: "ubuntu-latest"
     steps:
     - uses: actions/checkout@v3
 
     - name: Set up Python
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v4
       with:
         python-version: '3.11'
 
