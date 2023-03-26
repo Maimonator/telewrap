@@ -7,12 +7,14 @@ Telewrap sends notifications straight to your telegram, freeing you up to focus 
 # Getting started
 
 ## TLDR
-For those of you that just want it to work:
+For those of you that just want to make it work:
 ```bash
 pip install telewrap
 tl configure # then follow the instructions
 tlw sleep 5
 ```
+
+You can then send `/status` to your bot to get the last line from the `STDOUT` or `STDERR` of the program to your telegram.
 
 ## Installation
 
@@ -45,6 +47,7 @@ To wrap a command line program until it finishes and get the result in your Tele
 ```bash
 tlw my_program
 ```
+Now you can send `/status` to your bot to get the last line from the `STDOUT` or `STDERR` of the program to your telegram.
 
 If your command has any flags that are conflicting with `tl` you can use the following forms
 
@@ -68,7 +71,12 @@ with Telewrap():
         i += 1
 ```
 
-If you're using it in code you can even set the status_func and end_func to change the messages so that they fit your needs:
+The `Telewrap` object is configurable via the `status_func` and `end_func` parameters.
+You can override them so you can get a custom message when you send `/status` to your bot, or the program finishes running.
+You can see example functions under `telewrap/core/message_funcs.py`.
+Note that both of these functions expect to receive a single paramater which is `start_time: datetime.datetime` object.
+
+Here's an example with overriding both the `status_func` and `end_func`
 
 ```python
 from telewrap import Telewrap, message_funcs
